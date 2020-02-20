@@ -14,7 +14,6 @@ protocol CreateNotificationControllerDelegate: AnyObject {
 }
 
 class CreateNotificationController: UIViewController {
-
     // why do we need a story board id
     
     // property in text field is sentences so that way the sentence starts with a capitial
@@ -36,7 +35,7 @@ class CreateNotificationController: UIViewController {
     // MARK: done to create notification
     private func createLocalNotification(){
         // MARK: where the work actually starts
-        // step 1: create the content
+        // step m=1: create the content
         let content = UNMutableNotificationContent()
         // the content is the model for the notification...
         content.title = titleTextField.text ?? "No title was given" // gotta give a default value if they dont put anything
@@ -55,7 +54,6 @@ class CreateNotificationController: UIViewController {
         // get image
         // if it in the assests we wont be able to see it.
         if let imageURL = Bundle.main.url(forResource: "swift-logo", withExtension: "png") {
-            
             do{
         // attachments
             // unnotification throws so it needs to be put inside of a do catch
@@ -92,12 +90,8 @@ class CreateNotificationController: UIViewController {
     
     @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
         createLocalNotification()// once they click the done button the notification will get added to pending notifications
+         delegate?.didCreateNotification(self) // only want it to be called when they press the done button not every time the picker changes
         dismiss(animated: true)
-    }
-    
-    @IBAction func dataPickerChanged(_ sender: UIDatePicker) {
-        delegate?.didCreateNotification(self)
-        // we are telling it to watch itself
     }
     
     @IBAction func datePickerChanged(_ sender: UIDatePicker) {
